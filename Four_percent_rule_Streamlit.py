@@ -84,7 +84,7 @@ st.markdown(
 # Sliders in horizontal columns for compact layout
 col1, col2, col3 = st.columns([1,1,1])
 inflation = col1.slider("Inflation Rate (%)", 0.0, 10.0, 4.0, 0.5, format="%.1f")
-growth = col2.slider("Average Annual Growth Rate", 0.0, 20.0, 0.5, 5.0, format="%.1f")
+growth = col2.slider("Average Annual Growth Rate", 0.0, 20.0, 5.0, 0.5, format="%.1f")
 years  = col3.slider("Years", 10, 50, 30, 1)
 
 # Run simulation
