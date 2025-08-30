@@ -5,7 +5,7 @@ from plotly.subplots import make_subplots
 
 # --- Core Simulation ---
 def retirement_simulation(inflation_rate=4.0, growth_rate=10.0, years=30, 
-                          initial_balance=1000000, withdraw_rate=0.04):
+                          initial_balance=1000000, withdraw_rate=4.0):
     months = years * 12
     balance = initial_balance
     withdrawal = initial_balance * withdraw_rate / 100 / 12
@@ -28,7 +28,7 @@ def retirement_simulation(inflation_rate=4.0, growth_rate=10.0, years=30,
         if m % 12 == 0:
             annual_withdrawals.append(yearly_sum)
             yearly_sum = 0
-            withdrawal *= (1 + inflation_rate/100)
+            withdrawal *= (1 + inflation_rate / 100)
 
     cumulative_withdrawals = np.cumsum(annual_withdrawals).tolist()
     return np.arange(1, months + 1), balances, monthly_withdrawals, annual_withdrawals, cumulative_withdrawals, depletion_month
