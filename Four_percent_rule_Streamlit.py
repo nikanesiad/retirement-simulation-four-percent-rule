@@ -63,16 +63,17 @@ st.markdown(
     The 4% rule is a retirement guideline that says:
     - You can withdraw 4% of your initial retirement portfolio each year, adjusted for inflation,
     - and your money should last about 30 years (historically, in U.S. markets).
-    Example:
-    - If you retire with \\\$1,000,000, you withdraw \\\$40,000 in year 1.
+    
+    #### Example:
+    - If you retire with \$1,000,000, you withdraw \$40,000 in year 1.
     - In year 2, you increase the withdrawal by inflation (say 3%), so you withdraw $41,200, etc.
     - Meanwhile, your portfolio is (hopefully) growing at some average annual rate.  
-    Your Dynamic Simulator has:
+    #### Your Dynamic Simulator has:
     - Inputs: average inflation rate (%) and average annual growth rate (%)
-    - Starting balance = \\\$1,000,000
-    - Withdrawals = 4% of initial balance (\\\$40,000 per year), split into 12 monthly withdrawals, adjusted yearly for inflation
+    - Starting balance = \$1,000,000
+    - Withdrawals = 4% of initial balance (\$40,000 per year), split into 12 monthly withdrawals, adjusted yearly for inflation
     - Growth = applied monthly (annual growth / 12)
-    Features:
+    #### Features:
     - Balance evolution over time with monthly withdrawals.
     - Inflation-adjusted withdrawals.
     - Sliders to adjust average inflation and growth rate.
