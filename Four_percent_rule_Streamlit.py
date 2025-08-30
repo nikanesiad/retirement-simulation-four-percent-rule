@@ -56,6 +56,16 @@ def split_segments(x, y1, y2):
 # --- Streamlit App ---
 st.set_page_config(layout="wide")
 st.title("Retirement Portfolio Simulation (4% Rule)")
+# Subtitle / explanation text
+st.subheader("About this tool")
+st.markdown(
+    """
+    This interactive simulator allows you to model retirement savings and withdrawals.  
+    - Use the sliders to adjust salary, savings rate, years until retirement, and investment return.  
+    - The chart on the left shows the evolution of your portfolio over time.  
+    - The table on the right provides a numerical breakdown of values for each year.  
+    """
+)
 
 # Sliders in horizontal columns for compact layout
 col1, col2, col3 = st.columns([1,1,1])
