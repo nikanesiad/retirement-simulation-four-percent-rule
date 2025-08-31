@@ -491,20 +491,37 @@ else:
     3. Try refreshing the page to retry data fetching
     """)
 
-# import matplotlib.pyplot as plt
-# # 1x2 subplot
-# fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+import matplotlib.pyplot as plt
 
-# # Plot SP500
-# df['SP500'].plot(ax=axes[0], title="S&P 500 (^GSPC)")
-# axes[0].set_ylabel("Index Level")
+st.write(f"""
+**Raw market and inflation data used in the simulation**
+""")
+# 1x2 subplot
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+fig.patch.set_facecolor('black')  # Set figure background to black
 
-# # Plot Inflation (US + Canada)
-# df['US_CPI'].plot(ax=axes[1], label="US CPI")
-# df['CAN_CPI'].plot(ax=axes[1], label="Canada CPI")
-# axes[1].set_title("Inflation (CPI)")
-# axes[1].set_ylabel("CPI Index")
-# axes[1].legend()
+# ---------- S&P 500 subplot ----------
+axes[0].set_facecolor('black')      # Set axes background to black
+df['SP500'].plot(ax=axes[0], color='cyan', logy=True)  # semilog y, colorful line
+axes[0].set_title("S&P 500 (^GSPC)", color='white', fontsize=14)
+axes[0].set_xlabel("Year", color='white')
+axes[0].set_ylabel("S&P 500 (log-scale)", color='white')
+axes[0].tick_params(axis='x', colors='white')
+axes[0].tick_params(axis='y', colors='white')
 
-# st.pyplot(fig)
+# ---------- Inflation subplot ----------
+axes[1].set_facecolor('black')
+df['US_CPI'].plot(ax=axes[1], color='orange', label="US CPI")
+df['CAN_CPI'].plot(ax=axes[1], color='green', label="Canada CPI")
+axes[1].set_title("Inflation (CPI)", color='white', fontsize=14)
+axes[1].set_xlabel("Year", color='white')
+axes[1].set_ylabel("CPI Index", color='white')
+axes[1].legend(facecolor='black', edgecolor='white', labelcolor='white')
+axes[1].tick_params(axis='x', colors='white')
+axes[1].tick_params(axis='y', colors='white')
+
+plt.tight_layout()
+plt.show()
+
+st.pyplot(fig)
 
