@@ -232,7 +232,8 @@ if df is not None:
     max_year = df.index[-1].year
     
     # Ensure we have at least 25 years available for max range
-    max_selectable_end = min(max_year, min_year + 50)  # Cap at 50 years to avoid too long simulations
+    max_selectable_end = max_year # min(max_year, min_year + 50)  # Cap at 50 years to avoid too long simulations
+    # Commented the min(max_year, min_year + 50) to avoid the limit of 2000 in the max_selectable_end
     
     start_year = st.sidebar.slider("Start Year", min_year, max_year - 1, 
                                   value=max(min_year, max_year - 35), 
