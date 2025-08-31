@@ -2,4 +2,4 @@ yfinance
 streamlit
 numpy
 plotly
-matplotlib.pyplot
+matplotlib
