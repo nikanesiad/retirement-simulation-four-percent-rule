@@ -4,11 +4,11 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 # --- Core Simulation ---
-def retirement_simulation(inflation_rate=0.04, growth_rate=0.10, years=30, 
-                          initial_balance=1000000, withdraw_rate=0.04):
+def retirement_simulation(inflation_rate=4.0, growth_rate=10.0, years=30, 
+                          initial_balance=1000000, withdraw_rate=4.0):
     months = years * 12
     balance = initial_balance
-    withdrawal = initial_balance * withdraw_rate / 12
+    withdrawal = initial_balance * withdraw_rate / 100 / 12
     balances = []
     monthly_withdrawals = []
     annual_withdrawals = []
@@ -16,7 +16,7 @@ def retirement_simulation(inflation_rate=0.04, growth_rate=0.10, years=30,
     depletion_month = None
 
     for m in range(1, months + 1):
-        balance *= (1 + growth_rate / 12)
+        balance *= (1 + growth_rate / 100 / 12)
         balance -= withdrawal
         balances.append(balance)
         monthly_withdrawals.append(withdrawal)
@@ -28,7 +28,7 @@ def retirement_simulation(inflation_rate=0.04, growth_rate=0.10, years=30,
         if m % 12 == 0:
             annual_withdrawals.append(yearly_sum)
             yearly_sum = 0
-            withdrawal *= (1 + inflation_rate)
+            withdrawal *= (1 + inflation_rate / 100)
 
     cumulative_withdrawals = np.cumsum(annual_withdrawals).tolist()
     return np.arange(1, months + 1), balances, monthly_withdrawals, annual_withdrawals, cumulative_withdrawals, depletion_month
@@ -56,11 +56,35 @@ def split_segments(x, y1, y2):
 # --- Streamlit App ---
 st.set_page_config(layout="wide")
 st.title("Retirement Portfolio Simulation (4% Rule)")
+# Subtitle / explanation text
+st.subheader("About this tool")
+st.markdown(
+    """
+    The 4% rule is a retirement guideline that says:
+    - You can withdraw 4% of your initial retirement portfolio each year, adjusted for inflation,
+    - and your money should last about 30 years (historically, in U.S. markets).
+    
+    #### Example:
+    - If you retire with \$1,000,000, you withdraw \$40,000 in year 1.
+    - In year 2, you increase the withdrawal by inflation (say 3%), so you withdraw $41,200, etc.
+    - Meanwhile, your portfolio is (hopefully) growing at some average annual rate.  
+    #### Your Dynamic Simulator has:
+    - Inputs: average inflation rate (%) and average annual growth rate (%)
+    - Starting balance = \$1,000,000
+    - Withdrawals = 4% of initial balance (\$40,000 per year), split into 12 monthly withdrawals, adjusted yearly for inflation
+    - Growth = applied monthly (annual growth / 12)
+    #### Features:
+    - Balance evolution over time with monthly withdrawals.
+    - Inflation-adjusted withdrawals.
+    - Sliders to adjust average inflation and growth rate.
+    - Interactive Plotly graph (zoom, hover, etc).
+    """
+)
 
 # Sliders in horizontal columns for compact layout
 col1, col2, col3 = st.columns([1,1,1])
-inflation = col1.slider("Inflation Rate", 0.0, 0.10, 0.04, 0.005, format="%.3f")
-growth = col2.slider("Average Annual Growth Rate", 0.0, 0.20, 0.10, 0.005, format="%.3f")
+inflation = col1.slider("Inflation Rate (%)", 0.0, 10.0, 4.0, 0.5, format="%.1f")
+growth = col2.slider("Average Annual Growth Rate", 0.0, 20.0, 10.0, 0.5, format="%.1f")
 years  = col3.slider("Years", 10, 50, 30, 1)
 
 # Run simulation
