@@ -1,4 +1,4 @@
-# test_4percent_real_streamlit.py
+# This file considers real data for SP500 and inflation.
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -60,7 +60,7 @@ def fetch_sp500_data(start_date):
     try:
         # Use S&P 500 Total Return Index (^SP500TR) for more accurate results
         # Fallback to regular S&P 500 if total return index isn't available
-        tickers = ['^SP500TR', '^GSPC']
+        tickers = ['^GSPC', '^SP500TR']
         
         start_str = start_date.strftime('%Y-%m-%d')
         end_str = datetime.now().strftime('%Y-%m-%d')
